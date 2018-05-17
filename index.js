@@ -1,6 +1,6 @@
 const person = {
-  firstName: 'Jimmy',
-  lastName: 'Cozza',
+  firstName: "Jimmy",
+  lastName: "Cozza",
   age: 18
 };
 
@@ -19,12 +19,14 @@ const crappyMobx = {
       },
       set(target, name, value) {
         if (!crappyMobx.inAction) {
-          throw Error('Must be called in action');
+          throw Error("Must be called in action");
         }
-        target[name] = value;
+        if (target[name] !== value) {
+          target[name] = value;
 
-        if (this.observers[name]) {
-          this.observers[name].forEach(fn => fn());
+          if (this.observers[name]) {
+            this.observers[name].forEach(fn => fn());
+          }
         }
       }
     };
@@ -62,14 +64,14 @@ const observablePerson = crappyMobx.observable(person);
 
 crappyMobx.reaction(
   () => [observablePerson.firstName, observablePerson.lastName],
-  () => console.log('Someone changed the first name', observablePerson.age)
+  () =>
+    console.log("Someone changed the first name", observablePerson.firstName)
 );
 
 crappyMobx.action(() => {
-  observablePerson.firstName = 'rewrewrew';
-  observablePerson.lastName = 'r32432432432';
+  observablePerson.firstName = "rewrewrew";
+  observablePerson.firstName = "rewrewrew";
+  observablePerson.firstName = "rewrewrew";
+  observablePerson.firstName = "Scott";
+  // observablePerson.lastName = "r32432432432";
 });
-
-
-
-
