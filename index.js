@@ -1,5 +1,5 @@
 const person = {
-  firstName: "Jimmy",
+  firstName: "Joey",
   lastName: "Cozza",
   age: 18
 };
